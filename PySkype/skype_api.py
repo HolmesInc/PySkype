@@ -3,12 +3,13 @@ import requests
 from .utils import _logger
 
 
-def get_attachment(token, service_url, name, message_id):
+def get_attachment(token, service_url, name, message_id, attachments_dir):
     """Extracting attachment from conversation
     :param token: <str> - Microsoft Bots API access token
     :param service_url: <str> - attachment URL
     :param name: <str> - filename
     :param message_id: <str> - id of message, for adding to filename
+    :param attachments_dir: <str> - path, where to save attachments from Skype
     :return: <str> - path to downloaded file or None
     """
     try:
@@ -22,12 +23,11 @@ def get_attachment(token, service_url, name, message_id):
         if request.status_code == 200:
             _logger.info('Data were received. Status code 200')
             # creating directory for loaded attachment, if it doesn't exists
-            current_dir = os.path.dirname(os.path.abspath(__file__))
-            attachment_dir = '{}/attachments'.format(current_dir)
+            attachment_dir = '{}/attachments'.format(attachments_dir)
             if not os.path.exists(attachment_dir):
                 os.makedirs(attachment_dir)
             attachment = '{}/{}_{}'.format(attachment_dir, message_id, name)
-            with open(attachment, 'w') as attached_file:
+            with open(attachment, 'wb') as attached_file:
                 attached_file.write(request.content)
             _logger.info('Attachment successfully saved')
             return os.path.abspath(attachment)

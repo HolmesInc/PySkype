@@ -1,4 +1,5 @@
 import logging
+import os
 
 # --- --- --- --- --- --- --- --- ---
 #   Logger config
@@ -7,7 +8,8 @@ import logging
 _logger = logging.getLogger('Skype_API')
 _logger.setLevel(logging.DEBUG)
 # create file handler which logs even debug messages
-fh = logging.FileHandler('{}.log'.format('Skype_API'))
+current_dir = os.path.dirname(os.path.abspath(__file__))
+fh = logging.FileHandler('{}/{}.log'.format(current_dir, 'Skype_API'))
 fh.setLevel(logging.INFO)
 # create console handler with a higher log level
 ch = logging.StreamHandler()
