@@ -7,6 +7,6 @@
   <img src="https://raw.githubusercontent.com/HolmesInc/PySkype/master/docs/bots_panel.jpg"></li>
 <li>Enter data into required fields and generate Bot app ID and password, by clicking on "Create Microsoft App ID and password (REMEMBER: You have to save password, which was generated)</li>
 <li>After that, click "Register". If everithing correct, you'll see tool tip, which infrom you, that bot was successfully created and you'll be redirected to bot setting page</li>
-<img src="https://raw.githubusercontent.com/HolmesInc/PySkype/master/docs/created_bot.png">
+<img src="https://raw.githubusercontent.com/HolmesInc/PySkype/master/docs/create_bot.jpg">
 </ol>
 
