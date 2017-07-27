@@ -13,7 +13,9 @@
 Now, you need to create backend for you bot. For this example we'll use Flask + PySkype.
 <ol>
   <li>Start the new project. Create virtualenvironment for it:
-    ```$ virtualenv -p python3.5 venv```
+    ```shell
+    $ virtualenv -p python3.5 venv
+    ```
   </li>
   <li></li>
   <li></li>
