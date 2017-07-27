@@ -81,7 +81,7 @@ Now, you need to create backend for you bot. For this example we'll use Flask + 
       bot.send_message(service, sender, "YEAH, I'm working!")
     </pre>
   </li>
-  <li>And.. that's all=) All sources you can find by this URL. To get details power of PySkype, read README. And good luck!</li>
+  <li>And.. that's all=) All sources you can find by <a href="https://github.com/HolmesInc/PySkypeExample">this URL</a>. To get details power of PySkype, read README. And good luck!</li>
 </ol>
 
 
