@@ -9,7 +9,7 @@ except:
 
 setup(
     name='PySkype',
-    version='0.0.15',
+    version='0.0.17',
     packages=find_packages(),
     install_requires=[
         'requests',

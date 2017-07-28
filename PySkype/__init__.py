@@ -2,6 +2,8 @@ import os
 import requests
 from .skype_api_tools import get_attachment_path
 from .utils import _logger
+from flask import request
+from functools import wraps
 
 
 def get_token(client_id, client_secret):
@@ -117,3 +119,13 @@ class SkypeBot:
             _logger.info('Status code: {}'.format(request.status_code))
         except Exception as e:
             _logger.error(e)
+
+    def message_handler(self, req, **options):
+        def decorator(f):
+            @wraps(f)
+            def decorated_function(*args, **kwargs):
+                _logger.debug('Decorator will be here')
+                # here we need a code to wrap the request
+                return f(*args, **kwargs)
+            return decorated_function
+        return decorator
