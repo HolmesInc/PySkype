@@ -1,9 +1,8 @@
-import os
 import requests
+import json
+from functools import wraps
 from .skype_api_tools import get_attachment_path
 from .utils import _logger
-from flask import request
-from functools import wraps
 
 
 def get_token(client_id, client_secret):
@@ -30,7 +29,32 @@ def get_token(client_id, client_secret):
     return token
 
 
+class Message:
+    def __init__(self, api_json):
+        self.channel = api_json['channelId']
+        self.message_time = api_json['timestamp']
+        self.message_type = api_json['type']
+        self.username = api_json['from']['name']
+        self.user_id = api_json['from']['id']
+        self.message_id = api_json['id']
+        self.client_platform = api_json['entities'][0]['platform']
+        self.encoding = api_json['entities'][0]['locale']
+        if self.message_type == 'contactRelationUpdate':
+            self.action = api_json['action']
+        elif self.message_type == 'message':
+            self.message_text = api_json['text']
+            self.service_url = api_json['serviceUrl']
+
+
 class SkypeBot:
+    """
+    Main functionality:
+    - creating token from bot credentials to receiving and sending messages
+    - sending messages from bot
+    - getting attachments
+
+    """
+
     def __init__(self, client_id, client_secret, attachments_dir):
         self.client_id = client_id
         self.client_secret = client_secret
@@ -120,12 +144,21 @@ class SkypeBot:
         except Exception as e:
             _logger.error(e)
 
-    def message_handler(self, req, **options):
+    def message_handler(self, request, **options):
+        """ Decorator for extracting all data from received request  
+        :param request: <obj> - request with data
+        :param options: 
+        :return: 
+        """
+
         def decorator(f):
             @wraps(f)
             def decorated_function(*args, **kwargs):
-                _logger.debug('Decorator will be here')
+                api_json = json.loads(request.data.decode('utf8'))
+                message = Message(api_json)
                 # here we need a code to wrap the request
-                return f(*args, **kwargs)
+                return f(message, **kwargs)
+
             return decorated_function
+
         return decorator
