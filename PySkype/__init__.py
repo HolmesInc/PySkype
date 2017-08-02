@@ -34,7 +34,6 @@ class Message:
         self.channel = api_json['channelId']
         self.message_time = api_json['timestamp']
         self.message_type = api_json['type']
-        self.username = api_json['from']['name']
         self.user_id = api_json['from']['id']
         self.message_id = api_json['id']
         self.client_platform = api_json['entities'][0]['platform']
